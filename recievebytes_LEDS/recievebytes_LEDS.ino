@@ -15,6 +15,7 @@
 // Arduino.  When held that way, the first pixel is at the top left, and
 // lines are arranged in columns, progressive order.  The shield uses
 // 800 KHz (v2) pixels that expect GRB color data.
+
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN,
   NEO_MATRIX_TOP     + NEO_MATRIX_LEFT +
   NEO_MATRIX_COLUMNS + NEO_MATRIX_PROGRESSIVE,
@@ -47,7 +48,7 @@ void loop()
     //Serial.println(inByte, DEC);
     if(inByte == 255)
     {
-      Serial.println("started");
+      // Serial.println("started");
       started = true;
       index = 0;
       inBytes[index] = '\0';
@@ -55,7 +56,7 @@ void loop()
     
       else if(inByte == 0)
     {
-      Serial.println("ended");
+      // Serial.println("ended");
       ended = true;
     }
      else if(started = true)
@@ -67,7 +68,7 @@ void loop()
       inBytes[index] = '\0';
       if (index >= 36)
       {
-        Serial.println("36 Recieved");
+        // Serial.println("36 Recieved");
         index = 0;
         everythingReturned = true;
       }
@@ -79,29 +80,37 @@ void loop()
     ended = false;
     everythingReturned = false;
    
-    
+    // printing all the values
       int i;
       for (i = 0; i < 36; i = i + 1) {
-        Serial.print(i);
-        Serial.print(":");
-        Serial.println(inBytes[i], DEC);
+
+        if ( inBytes[i] < 254 )
+          { 
+              Serial.print(inBytes[i], DEC); 
+          } else { 
+              Serial.print("___"); 
+          }
+        Serial.print("\t");
+        // print values out in an array to visualise where the pressure is being appleid
+      if ( (i+1) % 6 == 0 )
+      {
+         Serial.println();
       }
+      }
+      Serial.println();
 
   for(int i=0; i < 6; i++)
     {
        for(int j=0; j < 6; j++)
     {
-         matrix.drawPixel(j,i,matrix.Color(inBytes[(i*6)+j],255,0));
-         matrix.show();
+         matrix.drawPixel(j,i,matrix.Color(255 - inBytes[(i*6)+j],255 - (i * 50), 255 - (j * 50)));   // read through the 6 x6 grid, indexing by i and j, where i is multiplied by 6 to offset in each row of 6, and j indexing into each row
+         matrix.show();  
     }
     }
 
     index = 0;
     inBytes[index] = '\0';
-    Serial.println("Everything returned and Ended");
-    
- 
-   
+    // Serial.println("Everything returned and Ended");
      
      
     }
