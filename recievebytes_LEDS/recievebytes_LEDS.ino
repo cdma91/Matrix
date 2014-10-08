@@ -34,7 +34,7 @@ void setup()
 {
   Serial.begin(9600);
    matrix.begin();
-   matrix.setBrightness(40);
+   matrix.setBrightness(80);
 }
 
 void loop()
@@ -103,7 +103,16 @@ void loop()
     {
        for(int j=0; j < 6; j++)
     {
-         matrix.drawPixel(j,i,matrix.Color(255 - inBytes[(i*6)+j],255 - (i * 50), 255 - (j * 50)));   // read through the 6 x6 grid, indexing by i and j, where i is multiplied by 6 to offset in each row of 6, and j indexing into each row
+         matrix.drawPixel( j+1, i+1, matrix.Color( 255 - inBytes[(i*6)+j], 255 - (i * 50), 255 - (j * 50)));   // read through the 6 x6 grid, indexing by i and j, where i is multiplied by 6 to offset in each row of 6, and j indexing into each row
+  
+  // experimenting with 8 x 8
+  //       if (i < 6 || j < 6 )
+  //       {
+  //           matrix.drawPixel(i, j, matrix.Color(255 - inBytes[(i*6)+j],255 - (i * 50), 255 - (j * 50)));   // read through the 6 x6 grid, indexing by i and j, where i is multiplied by 6 to offset in each row of 6, and j indexing into each row
+  //       } else {
+  //           matrix.drawPixel(i, j, matrix.Color(1 ,255 - (i * 35), 255 - (j * 35)));   // read through the 6 x6 grid, indexing by i and j, where i is multiplied by 6 to offset in each row of 6, and j indexing into each row
+ 
+//         }
          matrix.show();  
     }
     }
