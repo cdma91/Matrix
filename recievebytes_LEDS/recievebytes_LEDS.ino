@@ -7,7 +7,7 @@
 #define PSTR // Make Arduino Due happy
 #endif
 
-#define PIN 6 // Digital Pin 6 - this is where we connect, on the Arduino
+#define PIN 6
 
 
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN,
