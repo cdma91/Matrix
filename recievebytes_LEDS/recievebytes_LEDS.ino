@@ -23,16 +23,16 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN,
 
 
 byte inByte;   // Where to store the Bytes read
-byte inBytes[36];
-int index = 0;
-boolean started = false;
-boolean ended = false;
-boolean everythingReturned = false;
+byte inBytes[36]; // Where to store the array
+int index = 0;// index of array
+boolean started = false; //testing if serial has arrived
+boolean ended = false;// testing if serial has ended
+boolean everythingReturned = false; // if 36 numbers have been recieved
 
 void setup()
 {
   Serial.begin(9600);
-   matrix.begin();
+   matrix.begin(); 
    matrix.setBrightness(40);
 }
 
@@ -45,7 +45,7 @@ void loop()
   {  
     inByte = Serial.read(); // Read a Byte
     //Serial.println(inByte, DEC);
-    if(inByte == 255)
+    if(inByte == 255) //255 is sent at the start of the packet
     {
       Serial.println("started");
       started = true;
@@ -53,7 +53,7 @@ void loop()
       inBytes[index] = '\0';
     }
     
-      else if(inByte == 0)
+      else if(inByte == 0) //0 is sent at the end of the packet
     {
       Serial.println("ended");
       ended = true;
