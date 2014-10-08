@@ -1,5 +1,4 @@
-// Receive multiple numeric fields using Arduino 1.0 Stream parsing
-// ndjones
+
 #include <Adafruit_GFX.h>
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
@@ -7,9 +6,15 @@
 #define PSTR // Make Arduino Due happy
 #endif
 
-#define PIN 6
+
+#define PIN 6 // Digital Pin 6 - this is where we connect, on the Arduino
 
 
+// Example for NeoPixel Shield.  In this application we'd like to use it
+// as a 8x8 tall matrix, with the USB port positioned at the top of the
+// Arduino.  When held that way, the first pixel is at the top left, and
+// lines are arranged in columns, progressive order.  The shield uses
+// 800 KHz (v2) pixels that expect GRB color data.
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, PIN,
   NEO_MATRIX_TOP     + NEO_MATRIX_LEFT +
   NEO_MATRIX_COLUMNS + NEO_MATRIX_PROGRESSIVE,
